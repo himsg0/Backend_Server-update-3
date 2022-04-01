@@ -1,0 +1,20 @@
+{
+  "name": "kube-project",
+  "version": "1.0.0",
+  "description": "Made by Abhishek and Himanshu",
+  "main": "backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/serer.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "author": "Abhishek Mishra and Himanshu Singh",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8",
+    "nodemon": "^2.0.15"
+  }
+}
