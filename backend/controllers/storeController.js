@@ -6,6 +6,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const { distinct } = require("../models/storeModel");
 const banners= require("../models/localityModel");
 const cate= require("../models/categoryModel");
+const title= require("../models/titleModel");
 
 
 
@@ -189,3 +190,169 @@ exports.getAllStoreSubcat=catchAsyncErrors(async(req,res)=>{
     });
 });
 
+
+// Feature API(13) Commit by"Himanshu"  ++++****++++
+
+// all Vendors. add on 1.04.2022 controller for offers and vendors ON App
+
+exports.getAllFeaturedata=catchAsyncErrors(async(req,res)=>{
+    const apiFeature = new ApiFeatures(Store.find(),req.query).search().filter();
+    const stores= await apiFeature.query;
+   
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        
+        stores
+    });
+});
+
+exports.getAll2Featuredata=catchAsyncErrors(async(req,res)=>{
+    const apiFeature = new ApiFeatures(Store.find(),req.query).search().filter();
+    const stores= await apiFeature.query;
+   
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        
+        stores
+    });
+});
+
+//Feature Fashion.
+
+exports.getFashionFeature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Fashion","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        stores
+    });
+});
+
+exports.getFashion2Feature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Fashion","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        stores
+    });
+});
+
+
+
+//Feature Pets. 
+
+exports.getPetsFeature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Pets","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        stores
+    });
+});
+
+exports.getPets2Feature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Pets","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        stores
+    });
+});
+
+//Feature Food and Bevrages.
+
+exports.getFoodandBevrageFeature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Food and Beverages","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        stores
+    });
+});
+
+exports.getFoodandBevrage2Feature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Food and Beverages","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        stores
+    });
+});
+
+//Feature Beauty Wellness.
+
+exports.getWellnessFeature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Wellness","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        stores
+    });
+});
+
+exports.getWellness2Feature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Wellness","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        stores
+    });
+});
+
+
+
+//Feature Art& Craft.
+
+exports.getArtandCraftFeature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Art and Craft","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : false,
+        stores
+    });
+});
+
+exports.getArtandCraft2Feature= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category":"Art and Craft","featured":"true"}),req.query).search().filter();
+    const stores= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        OffersOrVendors : true,
+        stores
+    });
+});
+
+// get all title 
+exports.gettitledata=catchAsyncErrors(async(req,res)=>{
+    const apiFeature = new ApiFeatures(title.find(),req.query).search().filter();
+    const stores= await apiFeature.query;
+   
+
+    res.status(200).json({
+        success:true,
+        stores
+    });
+});

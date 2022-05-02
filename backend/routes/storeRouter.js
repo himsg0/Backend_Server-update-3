@@ -1,7 +1,10 @@
 const express =require('express');
 const {getAllCity, createStore, updateStore,createsubandcat
       ,getbannerbysub , getAlllocality, getAllCategories
-      ,getAlldata , createbanner, getAllsubCate,getAllcattable,getAllStoreCategories,getAllStoreSubcat}= require("../controllers/storeController");
+      ,getAlldata , createbanner, getAllsubCate,getAllcattable,getAllStoreCategories,getAllStoreSubcat
+,getAllFeaturedata,getAll2Featuredata,getFashionFeature,getFashion2Feature,getPetsFeature,
+getPets2Feature,getFoodandBevrageFeature,getFoodandBevrage2Feature,
+getWellnessFeature,getWellness2Feature,getArtandCraftFeature,getArtandCraft2Feature,gettitledata}= require("../controllers/storeController");
 
 const router= express.Router();
 
@@ -20,5 +23,21 @@ router.route("/store/banner/new").post(createbanner);        // create banner
 router.route("/store/new").post(createStore);                //create store
 router.route("/store/catandsub").post(createsubandcat);                     // create cat and sub cat
 router.route("/stores/:id").put(updateStore);             //update store by ID
+
+// 13 API's for App commit by Himanshu on 1.04.2022
+
+router.route("/stores/section1").get(getAllFeaturedata);                 //All Data
+router.route('/stores/section2').get(getAll2Featuredata);
+router.route("/stores/section3").get(getFashionFeature);                 //featured of fashion
+router.route("/stores/section4").get(getFashion2Feature);               
+router.route('/stores/section5').get(getPetsFeature);                       //featured of pets
+router.route('/stores/section6').get(getPets2Feature);
+router.route('/stores/section7').get(getFoodandBevrageFeature);       //featured of foodandBevrage
+router.route('/stores/section8').get(getFoodandBevrage2Feature);
+router.route('/stores/section9').get(getWellnessFeature);               //featured of Wellness
+router.route('/stores/section10').get(getWellness2Feature);
+router.route('/stores/section11').get(getArtandCraftFeature);         //featured of artandcraft
+router.route('/stores/section12').get(getArtandCraft2Feature);
+router.route('/stores/section13').get(gettitledata);                  // titles name
 
 module.exports=router;
