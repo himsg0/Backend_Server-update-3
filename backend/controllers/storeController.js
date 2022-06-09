@@ -356,3 +356,44 @@ exports.gettitledata=catchAsyncErrors(async(req,res)=>{
         stores
     });
 });
+
+// Create New Review or Update the review
+exports.createStoreReview = catchAsyncErrors(async (req, res, next) => {
+    const { rating, comment, storeId } = req.body;
+  
+    const review = {
+      
+      rating: Number(rating),
+      comment,
+    };
+  
+    const product = await Store.findById(storeId);
+  
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+  
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === req.user._id.toString())
+          (rev.rating = rating), (rev.comment = comment);
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+  
+    let avg = 0;
+  
+    product.reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+  
+    product.ratings = avg / product.reviews.length;
+  
+    await product.save({ validateBeforeSave: false });
+  
+    res.status(200).json({
+      success: true,
+    });
+  });

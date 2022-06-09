@@ -13,13 +13,17 @@ var corsOptions = {
 }
 //Route Import
 const store = require("./routes/storeRouter")
+const blog= require("./routes/blogRouter")
+const contact=require("./routes/contactRouter")
+const partner=require("./routes/partnerRoute")
+const kube=require("./routes/kubeRouter")
 app.use(cors(corsOptions))
 
 //Middle-ware for Error
 app.use(errorMiddleWare)
 app.use(express.static("./Public")) 
 console.log('/api/v1/'+`${envs.TOKEN}`)
-app.use('/api/v1/'+`${envs.TOKEN}`,store);
+app.use('/api/v1/'+`${envs.TOKEN}`,store,blog,contact,partner,kube);
 
 
 module.exports = app

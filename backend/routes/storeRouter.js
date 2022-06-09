@@ -4,7 +4,7 @@ const {getAllCity, createStore, updateStore,createsubandcat
       ,getAlldata , createbanner, getAllsubCate,getAllcattable,getAllStoreCategories,getAllStoreSubcat
 ,getAllFeaturedata,getAll2Featuredata,getFashionFeature,getFashion2Feature,getPetsFeature,
 getPets2Feature,getFoodandBevrageFeature,getFoodandBevrage2Feature,
-getWellnessFeature,getWellness2Feature,getArtandCraftFeature,getArtandCraft2Feature,gettitledata}= require("../controllers/storeController");
+getWellnessFeature,getWellness2Feature,getArtandCraftFeature,getArtandCraft2Feature,gettitledata,createStoreReview}= require("../controllers/storeController");
 
 const router= express.Router();
 
@@ -39,5 +39,7 @@ router.route('/stores/section10').get(getWellness2Feature);
 router.route('/stores/section11').get(getArtandCraftFeature);         //featured of artandcraft
 router.route('/stores/section12').get(getArtandCraft2Feature);
 router.route('/stores/section13').get(gettitledata);                  // titles name
+
+router.route("/review/new").put( createStoreReview);    // create store review
 
 module.exports=router;
