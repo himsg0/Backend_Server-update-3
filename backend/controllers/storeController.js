@@ -43,7 +43,7 @@ exports.createsubandcat= async(req,res,next)=>{
 
 // get all data with params
 exports.getAlldata=catchAsyncErrors(async(req,res)=>{
-    const apiFeature = new ApiFeatures(Store.find(),req.query).search().filter();
+    const apiFeature = new ApiFeatures(Store.find().sort({"packagepriority":1}),req.query).search().searchseason().filter();
     const products= await apiFeature.query;
    
 
@@ -52,6 +52,10 @@ exports.getAlldata=catchAsyncErrors(async(req,res)=>{
         products
     });
 });
+
+
+
+
 
 
 // get all city
@@ -359,29 +363,21 @@ exports.gettitledata=catchAsyncErrors(async(req,res)=>{
 
 // Create New Review or Update the review
 exports.createStoreReview = catchAsyncErrors(async (req, res, next) => {
-    const { rating, comment, storeId } = req.body;
+    const { rating, comment, storeId, name, url } = req.body;
   
     const review = {
       
       rating: Number(rating),
       comment,
+      name,
+      url,
     };
   
     const product = await Store.findById(storeId);
   
-    const isReviewed = product.reviews.find(
-      (rev) => rev.user.toString() === req.user._id.toString()
-    );
-  
-    if (isReviewed) {
-      product.reviews.forEach((rev) => {
-        if (rev.user.toString() === req.user._id.toString())
-          (rev.rating = rating), (rev.comment = comment);
-      });
-    } else {
-      product.reviews.push(review);
+          product.reviews.push(review);
       product.numOfReviews = product.reviews.length;
-    }
+    
   
     let avg = 0;
   
@@ -397,3 +393,109 @@ exports.createStoreReview = catchAsyncErrors(async (req, res, next) => {
       success: true,
     });
   });
+
+
+// Sort data by package_priority
+
+exports.getAllpackageSort=catchAsyncErrors(async(req,res)=>{
+    const apiFeature = new ApiFeatures(Store.find().sort({"packagepriority":1}),req.query).search().filter();
+    const sortPackagedata= await apiFeature.query;
+   
+
+    res.status(200).json({
+        success:true,
+        sortPackagedata
+    });
+});
+
+// branded Vendors
+
+exports.getBrandApi= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"category_type":"Brand"}),req.query);
+
+    const brandStore= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        brandStore
+    });
+});
+
+// Get all favourite store of a user
+
+exports.getAllFav=catchAsyncErrors(async(req,res)=>{
+    const favVendorList= req.body.favVendorList
+    const ObjectId = require('mongodb').ObjectId;
+    const favList = await  Store.aggregate(
+        [
+             param =  {
+                '$match': {
+                '_id': {
+                    '$in': createVendorList(favVendorList)
+                }
+                }
+            }
+          ]
+    )
+    function createVendorList(favVendorList){
+        var favVendorFinalAry = [];
+        for(let i =0; i< favVendorList.length;i++){
+            favVendorFinalAry.push(new ObjectId(favVendorList[i]))
+        }
+        return favVendorFinalAry;
+        
+    }
+    res.status(200).json({
+        success:true,
+        favList
+    });
+});
+
+
+// five and ten % offers API's
+
+exports.getFiveVendors= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"package":"Gold"}),req.query).search().filter();
+    const products= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        products
+    });
+});
+
+exports.getTenVendors= catchAsyncErrors(async(req,res)=>{
+    const apiFeature= new ApiFeatures(Store.find({"package":"Platinum"}),req.query).search().filter();
+    const products= await apiFeature.query;
+
+    res.status(200).json({
+        success:true,
+        products    });
+});
+
+// post counter in DB
+
+exports.storeOfferCounter = catchAsyncErrors(async (req, res, next) => {
+   
+    const { storeId, image } = req.body;
+    const prod = await Store.updateMany({_id:storeId, offer:{$elemMatch: { image: image}}},{$inc:{"offer.$.offerCounter": 1}});
+    
+    console.log(prod,"hello counter")
+  
+    
+    
+    /*const prod=await Store.updateMany(
+        {
+          _id: storeId,
+          offer: { $elemMatch: { image: image} }
+        },
+        { $set: { "offer.$.offerCounter" : value +1 } }
+     )
+    */
+    res.status(200).json({
+      success: true,
+      prod
+      
+    }); 
+  });
+

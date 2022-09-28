@@ -6,24 +6,30 @@ const envs = require('./config.js');
 app.use(express.json())
 
 
-var corsOptions = {
-    origin: ' https://www.kubecity.in',
 
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
 //Route Import
 const store = require("./routes/storeRouter")
 const blog= require("./routes/blogRouter")
 const contact=require("./routes/contactRouter")
 const partner=require("./routes/partnerRoute")
 const kube=require("./routes/kubeRouter")
-app.use(cors(corsOptions))
+const login = require("./routes/loginRouter")
+const user = require("./routes/userRouter")
+const advertise = require("./routes/advertiseRouter")
+const newsletter = require("./routes/newsletterRouter")
+const event = require("./routes/eventRouter")
+const kubetv = require("./routes/kubeTVRouter")
+const deals = require("./routes/dealsRouter")
+
+
+
+app.use(cors())
 
 //Middle-ware for Error
 app.use(errorMiddleWare)
 app.use(express.static("./Public")) 
 console.log('/api/v1/'+`${envs.TOKEN}`)
-app.use('/api/v1/'+`${envs.TOKEN}`,store,blog,contact,partner,kube);
+app.use('/api/v1/'+`${envs.TOKEN}`,store,blog,contact,partner,kube,login, user, advertise,newsletter, event,kubetv,deals);
 
 
 module.exports = app

@@ -11,19 +11,31 @@ const storeSchema= new mongoose.Schema({
         type:String,
         required:[true,"Please Enter Product Description"]
     },
-     package:{
-        type:String
-        
+     
+    package: {
+    type: String,
     },
+    season: {
+    type: String,
+    },
+
+
+    packagepriority: {
+    type: Number,
+    }, 
 
     phone:{
       type: Number,
     required: [true,"Please Enter the Phone Number"],
     maxLength: [10, "Price cannot exceed 10 characters"]
     },
+    altphone:{
+      type: Number,
+    maxLength: [10, "Price cannot exceed 10 characters"]
+    },
     email:{
       type: String,
-      required: [true,"Please Enter The Emil Id"]
+      
     },
     city:{
       type: String,
@@ -57,6 +69,16 @@ reviews: [
       ref: "User",
       required: true,
     },
+
+    email: {
+      type: String,
+      
+    },
+   
+    url: {
+      type: String,
+      
+    },
     name: {
       type: String,
       required: true,
@@ -68,6 +90,10 @@ reviews: [
     comment: {
       type: String,
       required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
 ],
@@ -96,16 +122,28 @@ tags:[
     }
   }
 ],
+products:[
+  {
+    productName: {
+      type: String,
+    },
+    url: {
+      type: String,
+    }
+
+  }
+],
+
 
 vendor: 
     {
       vendor_name: {
         type: String,
-        required: true,
+        
       },
       vendor_address: {
         type: String,
-        required: true,
+        
       },
     },
 
@@ -151,6 +189,17 @@ vendor:
     image:{
         type:String,
     },
+    offerCounter:{
+      type:Number,
+  },
+    offerdetail:{
+        type:String,
+    },
+    termsandcondition:{
+        type:String,
+    },
+
+
     initiation_date:{
         type: Date,
         default: Date.now
@@ -160,25 +209,46 @@ vendor:
   }
 
 }],
- 
-  
+location:[
+  {
+    latitude: {
+      type: String,
+    },
+    longitude: {
+      type: String,
+    }
 
-    
+  }
+],
+openinghours:[
+  {
+    titlekey: {
+      type: String,
+    },
+    titlevalue: {
+      type: String,
+    },
+    title2key: {
+      type: String,
+    },
+    title2value: {
+      type: String,
+    }
 
-  
+  }
+],
 
 
-    
-    
-    images:[
+
+  images:[
         {
             public_id:{
                 type:String,
-                required:true
+                
             },
             url:{
                 type:String,
-                required:true
+                
             }
         }
     ],

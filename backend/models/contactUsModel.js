@@ -11,6 +11,11 @@ const ContactUsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      
+    },
+
     mobileNo: {
       type: Number,
       required: [true,"Please Enter the Phone Number"],

@@ -17,6 +17,21 @@ class ApiFeatures{
         return this;
     };
 
+    // search by multiple season
+    
+    searchseason(){
+        const seasonkey= this.queryStr.seasonkey ?{
+            season:{
+                $regex:this.queryStr.seasonkey,
+                $options:"i",
+            },
+        }:{};
+
+        console.log(seasonkey);
+        this.query=this.query.find({...seasonkey});
+        return this;
+    };
+
     //complete
     //locality fetching by city name
 
