@@ -5,7 +5,7 @@ const {getAllCity, createStore, updateStore,createsubandcat
 ,getAllFeaturedata,getAll2Featuredata,getFashionFeature,getFashion2Feature,getPetsFeature,
 getPets2Feature,getFoodandBevrageFeature,getFoodandBevrage2Feature,
 getWellnessFeature,getWellness2Feature,getArtandCraftFeature,getArtandCraft2Feature,gettitledata,createStoreReview,getAllpackageSort,
-getBrandApi,getAllFav,getFiveVendors, getTenVendors, storeOfferCounter}= require("../controllers/storeController");
+getBrandApi,getAllFav,getFiveVendors, getTenVendors, storeOfferCounter, storeOfferdiscount,storeOfferdiscountcounter}= require("../controllers/storeController");
 
 const router= express.Router();
 
@@ -18,6 +18,7 @@ router.route("/stores/Allcategories").get(getAllStoreCategories);    // get all 
 router.route("/stores/Allsubcategories").get(getAllStoreSubcat);     // get sub cat by cat store
 router.route("/stores/getbanner").get(getbannerbysub);       // get banners by locality
 router.route("/stores/cattable").get(getAllcattable);  
+router.route("/stores/offerbydiscount").post(storeOfferdiscount);   // test offer
 
 
       
@@ -28,6 +29,7 @@ router.route("/store/catandsub").post(createsubandcat);                     // c
 router.route("/stores/:id").put(updateStore);             //update store by ID
 
 router.route("/store/offer/counter").put(storeOfferCounter); 
+router.route("/datateam/offer/counter").post(storeOfferdiscountcounter);   
 
 // 13 API's for App commit by Himanshu on 1.04.2022
 

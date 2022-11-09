@@ -10,6 +10,7 @@ const title= require("../models/titleModel");
 
 
 
+
 // Create Product --Admin
 exports.createStore= async(req,res,next)=>{
     const product= await Store.create(req.body);
@@ -498,4 +499,199 @@ exports.storeOfferCounter = catchAsyncErrors(async (req, res, next) => {
       
     }); 
   });
+
+
+  // TEST ON OFFERS
+  exports.storeOfferdiscount = catchAsyncErrors(async (req, res, next) => {
+   
+    const { dis, city, locality } = req.body;
+    const prod = await Store.find({ offer:{$elemMatch: { offerdiscount: dis}}}).sort({"packagepriority":1});
+
+    let results = [];
+    
+
+    
+   /*   prod.forEach(avg => {
+          if (city && !locality) {
+              if (avg["city"] == city) {
+                avg.offer.forEach(element => {
+                    if (element["offerdiscount"] === dis) {
+                        results.push(element)
+                    }
+                })
+              }
+          }
+          else if (city && locality) {
+            if(avg["city"]==city && avg["locality"]==locality){
+            avg.offer.forEach(element => {
+                if (element["offerdiscount"] === dis) {
+                    results.push(element)
+                }
+            })
+        }
+   } })  */
+
+   var indexes = []
+   var final = []
+   var storeid = []
+   var discountimages=[]
+
+   var allocality='';
+   if(locality=="All Locality"){
+    allocality=locality;
+   }
+
+
+      prod.forEach((avg, index) => {
+
+          if (city && allocality) {
+
+              if (avg["city"] == city) {
+                  
+                  //console.log(avg)
+                  
+                  avg.offer.forEach((element, index) => {
+                      if (element["offerdiscount"] === dis) {
+                          indexes.push(index)
+                          storeid.push(avg._id);
+                          discountimages.push(element.image)
+                      }
+                  })
+
+              }
+          }
+          else if (city && locality) {
+              if (avg["city"] == city && avg["locality"] == locality) {
+                  storeid.push(avg._id);
+                  
+                  avg.offer.forEach((element, index) => {
+                      if (element["offerdiscount"] === dis) {
+                          indexes.push(index)
+                          discountimages.push(element.image)
+                      }
+                  })
+
+              }
+
+          }
+      });
+
+      indexes.forEach((idx, index) => {
+          const num2 = storeid[index];
+          const num3 = discountimages[index];
+          const person = {
+              index: idx,
+              id: num2,
+              image: num3
+
+          }
+          final.push(person);
+      });
+
+  
+    res.status(200).json({
+      success: true,
+      final
+      
+    }); 
+  });
+
+  // count offer for data team
+
+  exports.storeOfferdiscountcounter = catchAsyncErrors(async (req, res, next) => {
+   
+    const { dis, city, locality } = req.body;
+    const prod = await Store.find({ offer:{$elemMatch: { offerdiscount: dis}}}).sort({"packagepriority":1});
+
+    let results = [];
+    
+
+    
+   /*   prod.forEach(avg => {
+          if (city && !locality) {
+              if (avg["city"] == city) {
+                avg.offer.forEach(element => {
+                    if (element["offerdiscount"] === dis) {
+                        results.push(element)
+                    }
+                })
+              }
+          }
+          else if (city && locality) {
+            if(avg["city"]==city && avg["locality"]==locality){
+            avg.offer.forEach(element => {
+                if (element["offerdiscount"] === dis) {
+                    results.push(element)
+                }
+            })
+        }
+   } })  */
+
+   var DownloadCount = []
+   var final = []
+   var storeid = []
+   var discountimages=[]
+
+   var allocality='';
+   if(locality=="All Locality"){
+    allocality=locality;
+   }
+
+
+      prod.forEach((avg, index) => {
+
+          if (city && allocality) {
+
+              if (avg["city"] == city) {
+                  
+                  //console.log(avg)
+                  
+                  avg.offer.forEach((element, index) => {
+                      if (element["offerdiscount"] === dis) {
+                        DownloadCount.push(element.offerCounter)
+                          storeid.push(avg.storename);     
+                          discountimages.push(element.image)
+                      }
+                  })
+
+              }
+          }
+          else if (city && locality) {
+              if (avg["city"] == city && avg["locality"] == locality) {
+                  storeid.push(avg._id);
+                  
+                  avg.offer.forEach((element, index) => {
+                      if (element["offerdiscount"] === dis) {
+                          DownloadCount.push(element.offerCounter)
+                          storeid.push(avg.storename);
+                          discountimages.push(element.image)
+                      }
+                  })
+
+              }
+
+          }
+      });
+
+      DownloadCount.forEach((idx, index) => {
+          const num2 = storeid[index];
+          const num3 = discountimages[index];
+          const person = {
+              Download: idx,
+              StoreName: num2,
+              image: num3
+
+          }
+          final.push(person);
+      });
+
+  
+    res.status(200).json({
+      success: true,
+      final
+      
+    }); 
+  });
+
+
 

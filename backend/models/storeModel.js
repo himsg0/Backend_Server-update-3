@@ -192,6 +192,10 @@ vendor:
     offerCounter:{
       type:Number,
   },
+  
+    offerdiscount:{
+        type:String,
+    },
     offerdetail:{
         type:String,
     },
