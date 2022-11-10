@@ -13,13 +13,13 @@ exports.createDeals= async(req,res,next)=>{
 }
 
 exports.getFestiveDeals=catchAsyncErrors(async(req,res)=>{
-    const apiFeature = new ApiFeatures(Deals.find({}),req.query);//.search().filter();
-    const kubereel= await apiFeature.query;
+    const apiFeature = new ApiFeatures(Deals.find({}),req.query).search().filter();
+    const festivaldeal= await apiFeature.query;
    
 
     res.status(200).json({
         success:true,
-        kubereel
+        festivaldeal
     });
 });
 
