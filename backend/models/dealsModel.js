@@ -2,17 +2,21 @@ const mongoose = require("mongoose");
 
 const deals = new mongoose.Schema({
   
-    titleDeal: {
+    weddingurl: {
         type: String,
         
       },
-  festivedealsbanner: [
+      title: {
+        type: String,
+        
+      },
+  festivedealsdays: [
     {
-      offerurl: {
+      dayurl: {
         type: String
         
       },
-      vendorid: {
+      daytitle: {
         type: String,
         
       },
