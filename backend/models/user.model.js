@@ -12,6 +12,10 @@ const UserSchema = new mongoose.Schema({
     cloudinary_id: {
         type: String
     },
+    kubecoin: {
+        type: Number
+        
+    },
     phone: {
         type: String,
         required: true

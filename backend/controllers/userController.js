@@ -260,3 +260,57 @@ exports.unlikeShop = async (req, res) => {
   }
 }
 
+// api for add coin to an account
+
+exports.creditCoin = async (req, res) => {
+  try {
+    await User.updateOne(
+      {
+        phone: req.body.phone,
+      },
+      {
+        $inc: {
+          kubecoin: req.body.kubecoin,
+          
+        },
+      }
+    ).exec();
+    const user = await User.findOne({ phone: req.body.phone });
+    return res.status(StatusCodes.OK).json({
+      data: user,
+      message: "Coin Credit successfully",
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: "Error in get user",
+    });
+  }
+};
+
+// debit coin
+exports.debitCoin = async (req, res) => {
+  try {
+    await User.updateOne(
+      {
+        phone: req.body.phone,
+      },
+      {
+        $inc: {
+          kubecoin: -req.body.kubecoin,
+          
+        },
+      }
+    ).exec();
+    const user = await User.findOne({ phone: req.body.phone });
+    return res.status(StatusCodes.OK).json({
+      data: user,
+      message: "Coin Debit successfully",
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: "Error in get user",
+    });
+  }
+};

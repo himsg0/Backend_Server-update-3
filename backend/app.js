@@ -20,6 +20,8 @@ const newsletter = require("./routes/newsletterRouter")
 const event = require("./routes/eventRouter")
 const kubetv = require("./routes/kubeTVRouter")
 const deals = require("./routes/dealsRouter")
+const kubecoin = require("./routes/kubecoinRouter")
+const transaction = require("./routes/transactionRouter")
 
 
 
@@ -29,7 +31,8 @@ app.use(cors())
 app.use(errorMiddleWare)
 app.use(express.static("./Public")) 
 console.log('/api/v1/'+`${envs.TOKEN}`)
-app.use('/api/v1/'+`${envs.TOKEN}`,store,blog,contact,partner,kube,login, user, advertise,newsletter, event,kubetv,deals);
+app.use('/api/v1/'+`${envs.TOKEN}`,store,blog,contact,partner,kube,login, user, advertise,newsletter, event,kubetv,deals
+,kubecoin,transaction);
 
 
 module.exports = app

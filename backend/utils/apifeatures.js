@@ -17,6 +17,20 @@ class ApiFeatures{
         return this;
     };
 
+    // search by debituser
+    searchdebit(){
+        const keyword= this.queryStr.keyword ?{
+            debituser:{
+                $regex:this.queryStr.keyword,
+                $options:"i",
+            },
+        }:{};
+
+        console.log(keyword);
+        this.query=this.query.find({...keyword});
+        return this;
+    };
+
     // search by multiple season
     
     searchseason(){
