@@ -21,4 +21,7 @@ router.put("/user", userController.updateUser);
 router.put("/user/like", userController.likeShop);
 router.put("/user/unlike", userController.unlikeShop);
 
+router.put("/coin/credit/user", userController.creditCoin);
+router.put("/coin/debit/user", userController.debitCoin);
+
 module.exports = router;

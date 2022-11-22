@@ -25,6 +25,7 @@
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.15",
     "twilio": "^3.77.2",
+    "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
