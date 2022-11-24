@@ -15,6 +15,9 @@ connectDatabase();
 
 
 // SSL connection 
+app.get('/',(req,res)=>{
+    res.send("welcome to")
+})
 const port= process.env.PORT || 3000;
 
 app.listen(port,()=>{
