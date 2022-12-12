@@ -44,7 +44,8 @@ exports.createsubandcat= async(req,res,next)=>{
 
 // get all data with params
 exports.getAlldata=catchAsyncErrors(async(req,res)=>{
-    const apiFeature = new ApiFeatures(Store.find().sort({"packagepriority":1}),req.query).search().searchseason().filter();
+    const resultPerPage=10;
+    const apiFeature = new ApiFeatures(Store.find().sort({"packagepriority":1}),req.query).search().searchseason().filter().pagination(resultPerPage);
     const products= await apiFeature.query;
    
 
