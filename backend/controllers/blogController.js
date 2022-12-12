@@ -19,7 +19,14 @@ exports.createPost= async(req,res,next)=>{
 // get all blog post
 exports.getAllblog=catchAsyncErrors(async(req,res)=>{
     const resultPerPage=10;
-    const apiFeature = new ApiFeatures(Post.find(),req.query).search().filter().pagination(resultPerPage);
+    let apiFeature;
+    const page= req.query.page;
+    if(page){
+        apiFeature =new ApiFeatures(Post.find(),req.query).search().filter().pagination(resultPerPage);
+    }else{
+        apiFeature =new ApiFeatures(Post.find(),req.query).search().filter();
+    }
+    
     const Blogpost= await apiFeature.query;
    
 
