@@ -73,11 +73,10 @@ exports.getPagecount=catchAsyncErrors(async(req,res)=>{
     
     const products= await apiFeature.query;
     let count = products.length;
-   
-
+    let totalpage=count/resultPerPage;
     res.status(200).json({
         success:true,
-        count
+        totalpage
 
     });
 });
