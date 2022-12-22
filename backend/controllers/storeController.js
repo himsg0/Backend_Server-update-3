@@ -64,6 +64,24 @@ exports.getAlldata=catchAsyncErrors(async(req,res)=>{
     });
 });
 
+//get count for Pagination
+// get all data with params
+exports.getPagecount=catchAsyncErrors(async(req,res)=>{
+    const resultPerPage=10;
+    let apiFeature = new ApiFeatures(Store.find().sort({"packagepriority":1}),req.query).search().searchseason().filter();;
+    
+    
+    const products= await apiFeature.query;
+    let count = products.length;
+   
+
+    res.status(200).json({
+        success:true,
+        count
+
+    });
+});
+
 
 
 

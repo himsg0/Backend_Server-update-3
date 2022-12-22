@@ -28,12 +28,15 @@ exports.Login = async (req, res) => {
         
         user: user,
         data2: sendWati(phone,username),
+        statuskey:true,
         message: "Login successfull",
       });
     } else {
       return res.status(StatusCodes.NOT_FOUND).json({
         data: phone,
+        statuskey:false,
         message: "Mobile number not found",
+        
       });
     }
   } catch (error) {

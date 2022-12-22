@@ -5,11 +5,12 @@ const {getAllCity, createStore, updateStore,createsubandcat
 ,getAllFeaturedata,getAll2Featuredata,getFashionFeature,getFashion2Feature,getPetsFeature,
 getPets2Feature,getFoodandBevrageFeature,getFoodandBevrage2Feature,
 getWellnessFeature,getWellness2Feature,getArtandCraftFeature,getArtandCraft2Feature,gettitledata,createStoreReview,getAllpackageSort,
-getBrandApi,getAllFav,getFiveVendors, getTenVendors, storeOfferCounter, storeOfferdiscount,storeOfferdiscountcounter}= require("../controllers/storeController");
+getBrandApi,getAllFav,getFiveVendors, getTenVendors, storeOfferCounter, storeOfferdiscount,storeOfferdiscountcounter,getPagecount}= require("../controllers/storeController");
 
 const router= express.Router();
 
 router.route("/stores/all").get(getAlldata); // get all data by params
+router.route("/stores/page").get(getPagecount);
 router.route("/stores/city").get(getAllCity); // get all distinct city
 router.route("/stores/locality").get(getAlllocality);       // get locality by city
 router.route("/stores/categories").get(getAllCategories);    // get all cat
